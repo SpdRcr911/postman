@@ -1,0 +1,506 @@
+{
+	"info": {
+		"_postman_id": "08eab573-4b04-4f9d-9580-c66adc06bef5",
+		"name": "Test Create Contact",
+		"description": "This is the API for the Contact List App: \nhttps://thinking-tester-contact-list.herokuapp.com/",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "101498"
+	},
+	"item": [
+		{
+			"name": "GET Echo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.postman-echo.com/get",
+					"protocol": "https",
+					"host": [
+						"www",
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Echo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response body\r",
+							"let actual = pm.response.json();\r",
+							"// Set the id value into an environment variable\r",
+							"pm.environment.set(\"_id\", actual._id);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthdate\": \"1970-01-01\",\n    \"email\": \"jdoe@fake.com\",\n    \"phone\": \"8005555555\",\n    \"street1\": \"1 Main St.\",\n    \"street2\": \"Apartment A\",\n    \"city\": \"Anytown\",\n    \"stateProvince\": \"KS\",\n    \"postalCode\": \"12345\",\n    \"country\": \"USA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Add Contact",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthdate\": \"1970-01-01\",\n    \"email\": \"jdoe@fake.com\",\n    \"phone\": \"8005555555\",\n    \"street1\": \"1 Main St.\",\n    \"street2\": \"Apartment A\",\n    \"city\": \"Anytown\",\n    \"stateProvince\": \"KS\",\n    \"postalCode\": \"12345\",\n    \"country\": \"USA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "Text",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"_id\": \"6085a221fcfc72405667c3d4\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthdate\": \"1970-01-01\",\n    \"email\": \"jdoe@fake.com\",\n    \"phone\": \"8005555555\",\n    \"street1\": \"1 Main St.\",\n    \"street2\": \"Apartment A\",\n    \"city\": \"Anytown\",\n    \"stateProvince\": \"KS\",\n    \"postalCode\": \"12345\",\n    \"country\": \"USA\",\n    \"owner\": \"6085a21efcfc72405667c3d4\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/:contactId",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts",
+						":contactId"
+					],
+					"variable": [
+						{
+							"key": "contactId",
+							"value": "{{_id}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Contact",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts",
+								"{{contactId}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": null,
+					"cookie": [],
+					"body": "{\n    \"_id\": \"6085a221fcfc72405667c3d4\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"birthdate\": \"1970-01-01\",\n    \"email\": \"jdoe@fake.com\",\n    \"phone\": \"8005555555\",\n    \"street1\": \"1 Main St.\",\n    \"street2\": \"Apartment A\",\n    \"city\": \"Anytown\",\n    \"stateProvince\": \"KS\",\n    \"postalCode\": \"12345\",\n    \"country\": \"USA\",\n    \"owner\": \"6085a21efcfc72405667c3d4\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Contact",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Deletion success message received\", function () {",
+							"    pm.response.to.have.body(\"Contact deleted\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/:contactId",
+					"protocol": "https",
+					"host": [
+						"thinking-tester-contact-list",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"contacts",
+						":contactId"
+					],
+					"variable": [
+						{
+							"key": "contactId",
+							"value": "{{_id}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Contact",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contactId}}",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts",
+								"{{contactId}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": null,
+					"cookie": [],
+					"body": "Contact deleted"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"{",
+					"    let testCaseID;",
+					"    let testCaseName;",
+					"    let testData;",
+					"",
+					"    if (pm.iterationData.values.count() != 0) {",
+					"        testCaseID = pm.iterationData.get(\"testCaseID\");",
+					"        testCaseName = pm.iterationData.get(\"testCaseName\");",
+					"        testData = pm.iterationData.get(\"testData\").find(item => item.request.name === pm.info.requestName);",
+					"    } else {",
+					"        iterationData =  {",
+					"            \"testCaseID\": \"TC001\",",
+					"            \"testCaseName\": \"Create User 1\",        ",
+					"            \"data\": [",
+					"                {",
+					"                    \"request\": {",
+					"                        \"name\": \"POST Echo\",",
+					"                        \"method\": \"POST\",",
+					"                        \"endpoint\": \"/contacts\",",
+					"                        \"headers\": {",
+					"                            \"Content-Type\": \"application/json\"",
+					"                        },",
+					"                        \"body\": {",
+					"                            \"firstName\": \"Jim\",",
+					"                            \"lastName\": \"Doe\",",
+					"                            \"birthdate\": \"1970-01-01\",",
+					"                            \"email\": \"jdoe@fake.com\",",
+					"                            \"phone\": \"8005555555\",",
+					"                            \"street1\": \"1 Main St.\",",
+					"                            \"street2\": \"Apartment A\",",
+					"                            \"city\": \"Anytown\",",
+					"                            \"stateProvince\": \"KS\",",
+					"                            \"postalCode\": \"12345\",",
+					"                            \"country\": \"USA\"",
+					"                        }",
+					"                    },",
+					"                    \"response\": {",
+					"                        \"statusCode\": 200,",
+					"                        \"headers\": {",
+					"                            \"Content-Type\": \"application/json\"",
+					"                        },",
+					"                        \"body\": {",
+					"                            \"json\": {",
+					"                                \"firstName\": \"Jim\",",
+					"                                \"lastName\": \"Doe\",",
+					"                                \"birthdate\": \"1970-01-01\",",
+					"                                \"email\": \"jdoe@fake.com\",",
+					"                                \"phone\": \"8005555555\",",
+					"                                \"street1\": \"1 Main St.\",",
+					"                                \"street2\": \"Apartment A\",",
+					"                                \"city\": \"Anytown\",",
+					"                                \"stateProvince\": \"KS\",",
+					"                                \"postalCode\": \"12345\",",
+					"                                \"country\": \"USA\"",
+					"                            }",
+					"                        },",
+					"                        \"newIdFieldName\" : \"_id\"",
+					"                    },                ",
+					"                },",
+					"                {",
+					"                    \"request\" : {",
+					"                        \"name\" : \"GET Echo\",",
+					"                    },",
+					"                    \"response\": {",
+					"                        \"statusCode\": 200",
+					"                    }                    ",
+					"                },",
+					"                {",
+					"                    \"request\": {",
+					"                        \"name\": \"DELETE Echo\"",
+					"                    },",
+					"                    \"response\": {",
+					"                        \"statusCode\": 200",
+					"                    }",
+					"                }",
+					"            ]",
+					"        };",
+					"        testCaseID = iterationData.testCaseID;",
+					"        testCaseName = iterationData.testCaseName;",
+					"        testData = iterationData.data.find(item => item.request.name === pm.info.requestName);",
+					"    }",
+					"",
+					"    if (testCaseID !== undefined && testCaseName !== undefined && testData !== undefined) {",
+					"        pm.collectionVariables.set(\"testCaseID\", testCaseID);",
+					"        pm.collectionVariables.set(\"testCaseName\", testCaseName);",
+					"        pm.collectionVariables.set(\"testData\", testData);",
+					"",
+					"        let request = testData.request;",
+					"        if (request) {",
+					"            if (request.body && request.headers) {",
+					"                for (const header in request.headers) {",
+					"                    pm.request.headers.upsert({ key: header, value: request.headers[header] });",
+					"                }",
+					"                pm.request.body.update(JSON.stringify(request.body));",
+					"            }",
+					"        }",
+					"    }",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"let testCaseID = pm.collectionVariables.get(\"testCaseID\");",
+					"let testCaseName = pm.collectionVariables.get(\"testCaseName\");",
+					"let testData = pm.collectionVariables.get(\"testData\");",
+					"",
+					"console.log(testData);",
+					"",
+					"if (testData) {",
+					"    let expectedResponse = testData.response;",
+					"",
+					"    // Test the status code //",
+					"    if (expectedResponse.statusCode) {",
+					"        pm.test(\"Status code is \" + expectedResponse.statusCode, function () {",
+					"            pm.response.to.have.status(expectedResponse.statusCode);",
+					"        });",
+					"    }",
+					"",
+					"    // Test the response body //",
+					"    if (expectedResponse.body) {",
+					"        let actualResponseBody = pm.response.json();",
+					"        let expectedBody = expectedResponse.body;",
+					"",
+					"        for (const key in expectedBody) {",
+					"            pm.test(`Response body contains ${key}`, function () {",
+					"                pm.expect(expectedBody).to.have.property(key);",
+					"            });",
+					"            pm.test(`Response body ${key} has correct value`, function () {",
+					"            pm.expect(actualResponseBody[key]).to.eql(expectedBody[key]);",
+					"            });",
+					"        }",
+					"    }",
+					"",
+					"    // Test the headers //",
+					"    if (expectedResponse.headers){",
+					"        const expectedHeaders = expectedResponse.headers;",
+					"        for (const header in expectedHeaders) {",
+					"            pm.test(`Header ${header} is present`, function () {",
+					"                pm.response.to.have.header(header);",
+					"            });",
+					"            pm.test(`Header ${header} has correct value`, function () {",
+					"                pm.expect(pm.response.headers.get(header)).to.eql(expectedHeaders[header]);",
+					"            });",
+					"        }",
+					"",
+					"    }",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "testCaseID",
+			"value": ""
+		},
+		{
+			"key": "testCaseName",
+			"value": ""
+		},
+		{
+			"key": "testData",
+			"value": ""
+		}
+	]
+}
